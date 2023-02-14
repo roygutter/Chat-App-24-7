@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "build": "react-scripts build"
-   
+    "build": "react-scripts build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefixprefix frontend"
+
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +19,7 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.9.0",
+    "netlify-cli": "^12.12.0",
     "nodemon": "^2.0.20",
     "socket.io": "^4.6.0"
   }
