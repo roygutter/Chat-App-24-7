@@ -18,12 +18,8 @@ import UpdateGroupChatModal from "./differents/UpdateGroupChatModal";
 import axios from "axios";
 import "./Styles.css";
 import ScrollableChat from "./ScrollableChat";
-
-import animationData from "../animations/typing.json";
-
 import io from "socket.io-client";
 
-const ENDPOINT = "https://mern-chatapp24l7.herokuapp.com/";
 let socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -37,15 +33,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const toast = useToast();
   const { user, selectedChat, setSelectedChat, notification, setNotification } =
     ChatState();
-
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
 
   const fetchMessages = async () => {
     if (!selectedChat) return;
@@ -80,16 +67,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   useEffect(() => {
-    socket = io(ENDPOINT);
+    socket = io("http://localhost:5001");
     socket.emit("setup", user);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
-  }, []);
+  }, [fetchAgain]);
 
   useEffect(() => {
     fetchMessages();
-
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
 
@@ -108,7 +94,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         setMessages([...messages, newMessageRecieved]);
       }
     });
-  });
+  }, []);
 
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage)

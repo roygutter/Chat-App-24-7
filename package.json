@@ -4,11 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-   
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefixprefix frontend"
-
-
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -27,5 +23,5 @@
   "engines": {
     "node": "18.12.1",
     "npm": "8.19.2"
-}
+  }
 }
